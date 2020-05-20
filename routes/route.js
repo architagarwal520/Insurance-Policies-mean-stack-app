@@ -10,7 +10,7 @@ if (url==null)  {
 } 
       
 //connect to mongodb database server
-MongoClient.connect(url,(err,client)=>{
+MongoClient.connect(url,(err,db)=>{
     if(err)
     {
        router.use('',(req,res)=>{
@@ -20,7 +20,7 @@ MongoClient.connect(url,(err,client)=>{
     else
     {  console.log("connected to database")
        //enter database mydb  
-       const db=client.db('mynewdb'); 
+       //const db=client.db('mynewdb'); 
         
        //CRUD routes
        router.post('/insert',(req,res)=>{
