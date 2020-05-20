@@ -59,7 +59,7 @@ MongoClient.connect(url,(err,client)=>{
         var name=req.query.name;
         if(typeof(id)=='undefined'&&typeof(name)=='undefined')
         {
-           db.collection('insurance').find({},{ projection:{"_id":0} }).toArray((error,result)=>{
+           db.collection('insurance').find({},{"_id":0} ).toArray((error,result)=>{
                if(error)
                res.send(error);
                else
@@ -68,7 +68,7 @@ MongoClient.connect(url,(err,client)=>{
         }
         else if(typeof(name)=='undefined')
         {
-           db.collection('insurance').find({"id":id},{ projection:{"_id":0} }).toArray((error,result)=>{
+           db.collection('insurance').find({"id":id}, {"_id":0} ).toArray((error,result)=>{
                if(error)
                res.send(error);
                else
@@ -82,7 +82,7 @@ MongoClient.connect(url,(err,client)=>{
         }
         else
         {
-           db.collection('insurance').find({"name":name},{ projection:{"_id":0} }).toArray((error,result)=>{
+           db.collection('insurance').find({"name":name}, {"_id":0} ).toArray((error,result)=>{
                if(error)
                res.send(error);
                else
