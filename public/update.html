@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href='../styling/navigation.css'/>
+     <link rel="stylesheet" href='../styling/update.css'/>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+     <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+</head>
+
+<body ng-app="update" ng-controller='updateCtrl' ng-init="response=''"></body>
+   <div class="topnav">
+      <a href="home.html">Home</a>
+      <a href="insert.html">Insert</a>
+      <a href="view.html">View</a>
+      <a class="active" href="update.html">Update</a>
+      <a href="delete.html">Delete</a>
+   </div>
+   
+   <br><br>
+   <div class="container">
+      <img id="img3" src="../images/img3.png">
+   </div>
+   <div >
+      <p>Enter the id to be updated:<input type="text" ng-model="data.id"></p>
+      <button class="btn btn-danger" ng-click="view()">OK</button> 
+   </div>
+
+   <div class="bg-warning text-white" ng-if="response.data=='Record with this id does not exist'">
+      <p><b>{{response.data}}</b></p>
+   </div>
+   <div ng-if="response.data!='Record with this id does not exist' && response!=''"> 
+     <form ng-submit="update()">   
+      <div > 
+         <p>
+            The current name is <b>{{copy.data[0].name}}</b><br/>   
+            Enter updated name:<input type="text" ng-model="data.name" ng-init="data.name=copy.data[0].name" required/><br/>
+         </p>
+         <p>
+            The current contact Info is <b>{{copy.data[0].contact}}</b><br/>
+            Enter updated contact Info:<input type="text"  ng-model="data.contact" ng-init="data.contact=copy.data[0].contact" required/><br/>
+         </p>
+      </div>
+      <div >
+         <h4><b>Add a new Policy</b></h4>
+         <p>
+            Type of Insurance:<input type="text" ng-model="item.type" ><br>
+	        Company of Insurance:<input type="text" ng-model="item.comp"/><br> 
+            Term of Insurance:<input type="number" ng-model="item.term"/><br>
+            <button type="button" class="btn btn-primary" ng-click="addRow()">Add</button><br>
+         </p>
+      </div>
+      <br>
+      <table class="table table-striped table-bordered table-hover">  
+      <thead>  
+        <th>Type of Insurance</th>  
+        <th>Company of Insurance</th>  
+        <th>Term of Insurance</th>  
+        <th>Options</th>
+       </thead>  
+       <tbody>  
+        <tr ng-repeat="t in list" ng-include="getTemplate($index)">
+         <script type="text/ng-template" id="display">
+          <td>{{t.type}} Years</td>
+          <td>{{t.comp}} Years</td>
+          <td>{{t.term}} Years</td>
+          <td>
+           <button type="button" class="btn btn-primary" ng-click="edit($index)">Edit</button>
+           <button type="button" class="btn btn-danger" ng-click="removeRow($index)">Delete</button>
+          </td>
+         </script>
+         <script type="text/ng-template" id="edit">
+          <td><input type="text" ng-model="item.type" ng-init="item.type=t.type" class="form-control input"/></td>
+          <td><input type="text" ng-model="item.comp" ng-init="item.comp=t.comp" class="form-control input"/></td>
+          <td><input type="number" ng-model="item.term" ng-init="item.term=t.term" class="form-control input"/></td>
+          <td>
+           <button type="button" class="btn btn-primary" ng-click="editRow()">Save</button>
+           <button type="button" class="btn btn-danger" ng-click="reset()">Cancel</button>
+          </td>
+         </script>
+        </tr>  
+       </tbody>  
+      <table>
+      <br/>
+      <input type="submit" class="btn btn-success" value="Submit">   
+     </form>
+     <br>
+     <div class="bg-warning text-white" ng-if="response.data=='Could not update record! Error in database access' || response.data=='Successfully updated record'">
+        <p>
+           <b>Status:{{response.data}}</b>
+        </p>
+   </div> 
+   <script src="../controllers/update.js"></script> 
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href='../styling/navigation.css'/>
+     <link rel="stylesheet" href='../styling/insert.css'/>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+     <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+</head>
+
+<body ng-app="insert" ng-controller='insertCtrl' ng-init="response=''">
+   
+    <div class="topnav">
+      <a href="home.html">Home</a>
+      <a class="active" href="insert.html">Insert</a>
+      <a href="view.html">View</a>
+      <a href="update.html">Update</a>
+      <a href="delete.html">Delete</a>
+   </div>
+ 
+    <form ng-submit="insert()" >
+        <br><br>
+        <label for="id" >Enter ID:</label>
+        <input type="text" id="id" ng-model="data.id" required/> <br><br>
+        <label for="name">Enter Owner Name:</label>
+        <input type="text" id="name" ng-model="data.name" required/><br> <br>
+        <label for="city">Enter Contact Details:</label>
+        <input type="text" id="contact" ng-model="data.contact" required/><br><br>
+        <label for="list">Add items to list:</label><br>
+        <div class="style">
+        Type of Insurance:<input type="text" id="date" ng-model="item.type"/><br><br>
+	    Company of Insurance:<input type="text" id="dest" ng-model="item.comp"/><br><br>
+        Term of Insurance:<input type="number" id="nob" ng-model="item.term"/>
+        </div>
+        <button type="button" ng-click="add()" class="btn">Add</button><br><br>
+        <label><b>List of items:</b></label><br>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+             <th>Type of Insurance</th>
+             <th>Company of Insurance</th>
+             <th>Term of Insurance</th>
+            </thead>
+            <tbody>
+             <tr ng-repeat="i in data.list">
+                <td>{{i.type}}</td>
+                <td>{{i.comp}}</td>
+                <td>{{i.term}}</td> 
+             </tr>
+            </tbody>
+        </table>
+        <br><input type="submit" value="Submit"/>
+    </form>
+
+    <p class="bg-danger">
+        <br><b>Status:{{response.data}}</b>
+   </p>
+
+    <script src="../controllers/insert.js"></script>
+</body>
+</html>
